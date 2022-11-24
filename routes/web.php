@@ -15,5 +15,7 @@ Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'inde
 Route::namespace('Admin')->middleware('auth')->group(function(){
     Route::prefix('users')->group(function(){
         Route::get('/',[UserController::class,'index'])->name('admin.users.index');
+        Route::get('/add',[UserController::class,'add'])->name('admin.user.add');
+        Route::post('/add',[UserController::class,'store'])->name('admin.user.store');
     });
 });
