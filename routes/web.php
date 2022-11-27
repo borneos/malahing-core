@@ -17,5 +17,7 @@ Route::namespace('Admin')->middleware('auth')->group(function(){
         Route::get('/',[UserController::class,'index'])->name('admin.users.index');
         Route::get('/add',[UserController::class,'add'])->name('admin.user.add');
         Route::post('/add',[UserController::class,'store'])->name('admin.user.store');
+        Route::get('/{user}',[UserController::class,'edit'])->name('admin.user.edit');
+        Route::put('/{user}',[UserController::class,'update'])->name('admin.user.update');
     });
 });

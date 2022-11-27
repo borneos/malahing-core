@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
@@ -39,6 +40,34 @@ class UserController extends Controller
             'password' => bcrypt($request->password)
         ]);
         Alert::success('Success','Data Created Successfully');
+        return redirect()->route('admin.users.index');
+    }
+    public function edit(User $user)
+    {
+        return view('admin.users.edit',compact('user'));
+    }
+    public function update(Request $request,User $user)
+    {
+         $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'old_password' => 'sometimes',
+            'new_password' => 'sometimes',
+        ]);
+        if($request->new_password){
+            if(!Hash::check($request->old_password, auth()->user()->password)){
+                return back()->with("error", "Old Password Doesn't match!");
+            }
+            if(strlen($request->new_password) < 8){
+                return back()->with("error", "New Password should min 8 character");
+            }
+        }
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->new_password ? bcrypt($request->new_password) : $user->password
+        ]);
+        Alert::success('Updated','Data Updated Successfully');
         return redirect()->route('admin.users.index');
     }
 }
