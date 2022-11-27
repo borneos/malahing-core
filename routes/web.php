@@ -18,5 +18,7 @@ Route::namespace('Admin')->middleware('auth')->group(function () {
     });
     Route::prefix('blog-category')->group(function () {
         Route::get('/', [BlogCategoryController::class, 'index'])->name('admin.blog-category.index');
+        Route::get('/add', [BlogCategoryController::class, 'add'])->name('admin.blog-category.add');
+        Route::post('/add', [BlogCategoryController::class, 'store'])->name('admin.blog-category.store');
     });
 });
