@@ -41,7 +41,10 @@ class BlogCategoryController extends Controller
         ]);
 
         if ($request->file('image')) {
-            $image = $this->UploadImageCloudinary(['image' => $request->file('image'), 'folder' => 'images/blogs']);
+            $image = $this->UploadImageCloudinary([
+                'image' => $request->file('image'),
+                'folder' => 'images/blogs'
+            ]);
             $image_url = $image['url'];
             $additional_image = $image['additional_image'];
         }
@@ -54,6 +57,41 @@ class BlogCategoryController extends Controller
             'additional_image' => $additional_image ?? ''
         ]);
         Alert::success('Success', 'Data Created Successfully');
+        return redirect()->route('admin.blog-category.index');
+    }
+
+    public function edit(BlogCategory $category)
+    {
+        return view('admin.blog-category.edit', [
+            'category' => $category
+        ]);
+    }
+    public function update(Request $request, BlogCategory $category)
+    {
+        $request->validate([
+            'category' => 'required',
+            'slug'     => 'required',
+            'image'    => 'image|mimes:jpeg,png,jpg,svg|max:8192'
+        ]);
+
+        if ($request->file('image')) {
+            $image = $this->UpdateImageCloudinary([
+                'image'         => $request->file('image'),
+                'folder'        => 'images/blogs',
+                'collection'    => $category
+            ]);
+            $image_url = $image['url'];
+            $additional_image = $image['additional_image'];
+        }
+
+        $category->update([
+            'name'              => $request->category,
+            'slug'              => $request->slug,
+            'description'       => $request->description,
+            'image'             => $image_url ?? $category->image,
+            'additional_image'  => $additional_image ?? $category->image
+        ]);
+        Alert::success('Success', 'Updated Successfully');
         return redirect()->route('admin.blog-category.index');
     }
 }

@@ -20,5 +20,7 @@ Route::namespace('Admin')->middleware('auth')->group(function () {
         Route::get('/', [BlogCategoryController::class, 'index'])->name('admin.blog-category.index');
         Route::get('/add', [BlogCategoryController::class, 'add'])->name('admin.blog-category.add');
         Route::post('/add', [BlogCategoryController::class, 'store'])->name('admin.blog-category.store');
+        Route::get('/edit/{category:slug}', [BlogCategoryController::class, 'edit'])->name('admin.blog-category.edit');
+        Route::put('/edit/{category:slug}', [BlogCategoryController::class, 'update'])->name('admin.blog-category.update');
     });
 });
