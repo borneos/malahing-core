@@ -9,7 +9,7 @@
                         <i class="pe-7s-note icon-gradient bg-tempting-azure"></i>
                     </div>
                     <div>
-                        Add Master BLog Category
+                        Add Master Blog Category
                         <div class="page-title-subheading">
 
                         </div>
