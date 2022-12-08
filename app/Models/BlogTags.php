@@ -11,9 +11,9 @@ class BlogTags extends Model
     use HasFactory, Sortable;
     protected $table = 'blog-tags';
     public $sortable = [
-        'tag_name', 'slug', 'total'
+        'tag_name', 'slug'
     ];
     protected $fillable = [
-        'tag_name', 'slug', 'total'
+        'tag_name', 'slug'
     ];
 }

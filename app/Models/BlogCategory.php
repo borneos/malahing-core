@@ -14,6 +14,6 @@ class BlogCategory extends Model
         'name', 'slug'
     ];
     protected $fillable = [
-        'name', 'slug', 'description', 'image', 'additional_image'
+        'name', 'slug', 'description', 'image', 'additional_image', 'tags_id'
     ];
 }

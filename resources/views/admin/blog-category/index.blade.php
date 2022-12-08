@@ -46,6 +46,7 @@
                         <tr>
                             <th style="min-width: 120px">@sortablelink('name', 'Name')</th>
                             <th style="min-width: 120px">@sortablelink('slug', 'Slug')</th>
+                            <th style="min-width: 120px">Tags</th>
                             <th style="min-width: 100px">Action</th>
                         </tr>
                     </thead>
@@ -56,9 +57,26 @@
                             </tr>
                         @endif
                         @foreach ($categories as $category)
+                            @php
+                                $tags_id = explode(',', $category->tags_id);
+                            @endphp
                             <tr>
                                 <td>{{ $category->name ? $category->name : '-' }}</td>
                                 <td>{{ $category->slug ? $category->slug : '-' }}</td>
+                                <td>
+                                    @foreach ($blogtags as $tag)
+                                        {{-- // is_array($tags_id) && in_array($tag->id, $tags_id) ? ($tagArr[] = $tag->tag_name) : ''; --}}
+                                        @if (is_array($tags_id) && in_array($tag->id, $tags_id))
+                                            @php
+                                                $tagArr[] = $tag->tag_name;
+                                            @endphp
+                                        @endif
+                                    @endforeach
+                                    @php
+                                        echo implode(', ', $tagArr);
+                                        unset($tagArr);
+                                    @endphp
+                                </td>
                                 <td>
                                     <a href="{{ route('admin.blog-category.edit', $category) }}" class="btn btn-warning btn-sm" title="Edit ?"><i style="font-size: 14px" class="text-white pe-7s-note"></i></a>
                                     <button type="button" onclick="delete_blog_category({{ $category->id }})" class="btn btn-danger btn-sm" title="Delete ?"><i style="font-size: 14px" class="pe-7s-trash"></i></button>

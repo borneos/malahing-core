@@ -17,7 +17,6 @@ class CreateBlogTagsTable extends Migration
             $table->id();
             $table->string('tag_name');
             $table->string('slug');
-            $table->integer('total');
             $table->timestamps();
         });
     }
