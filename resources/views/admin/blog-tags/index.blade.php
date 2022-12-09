@@ -49,7 +49,7 @@
                     <tbody>
                         @if ($tags->count() == 0)
                             <tr>
-                                <td colspan="5">No categories to display.</td>
+                                <td colspan="5">No tags to display.</td>
                             </tr>
                         @endif
                         @foreach ($tags as $tag)
