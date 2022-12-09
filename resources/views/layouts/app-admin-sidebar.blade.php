@@ -24,6 +24,9 @@
             <li>
                 <a class="blog-tags {{ request()->is('blog-tags') ? 'mm-active' : '' }}" href="{{ route('admin.blog-tags.index') }}"><i class="metismenu-icon pe-7s-ticket"></i>Blog Tags</a>
             </li>
+            <li>
+                <a class="banners {{ request()->is('banners') ? 'mm-active' : '' }}" href="{{ route('admin.banners.index') }}"><i class="metismenu-icon pe-7s-photo-gallery"></i>Banners</a>
+            </li>
         </ul>
     </div>
 </div>

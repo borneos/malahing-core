@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Admin\{BlogCategoryController, BlogTags, BlogTagsController, UserController};
+use App\Http\Controllers\Admin\{BannersController, BlogCategoryController, BlogTags, BlogTagsController, UserController};
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -28,5 +28,9 @@ Route::namespace('Admin')->middleware('auth')->group(function () {
 
     Route::prefix('blog-tags')->group(function () {
         Route::get('/', [BlogTagsController::class, 'index'])->name('admin.blog-tags.index');
+    });
+
+    Route::prefix('banners')->group(function () {
+        Route::get('/', [BannersController::class, 'index'])->name('admin.banners.index');
     });
 });
