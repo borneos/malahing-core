@@ -43,7 +43,6 @@
                         <tr>
                             <th style="min-width: 120px">@sortablelink('name', 'Name')</th>
                             <th style="min-width: 120px">@sortablelink('slug', 'Slug')</th>
-                            <th style="min-width: 120px">@sortablelink('total', 'Total')</th>
                             {{-- <th style="min-width: 100px">Action</th> --}}
                         </tr>
                     </thead>
@@ -57,11 +56,6 @@
                             <tr>
                                 <td>{{ $tag->tag_name ? $tag->tag_name : '-' }}</td>
                                 <td>{{ $tag->slug ? $tag->slug : '-' }}</td>
-                                <td>{{ $tag->total ? $tag->total : '-' }}</td>
-                                {{-- <td> --}}
-                                {{-- <a href="{{ route('admin.blog-tags.edit', $tag) }}" class="btn btn-warning btn-sm" title="Edit ?"><i style="font-size: 14px" class="text-white pe-7s-note"></i></a> --}}
-                                {{-- <button type="button" onclick="delete_blog_({{ $category->id }})" class="btn btn-danger btn-sm" title="Delete ?"><i style="font-size: 14px" class="pe-7s-trash"></i></button> --}}
-                                {{-- </td> --}}
                             </tr>
                         @endforeach
                     </tbody>

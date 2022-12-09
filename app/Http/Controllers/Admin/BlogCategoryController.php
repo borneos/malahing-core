@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Traits\CloudinaryImage;
 use App\Models\BlogCategory;
+use App\Models\BlogTags;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Str;
 
 class BlogCategoryController extends Controller
 {
@@ -15,6 +17,7 @@ class BlogCategoryController extends Controller
 
     public function index(Request $request)
     {
+        $blogtags = BlogTags::all();
         $filter = $request->query('filter');
         if (!empty($filter)) {
             $categories = BlogCategory::sortable()
@@ -24,12 +27,13 @@ class BlogCategoryController extends Controller
         } else {
             $categories = BlogCategory::sortable()->paginate(10);
         }
-        return view('admin.blog-category.index', compact('categories', 'filter'));
+        return view('admin.blog-category.index', compact('categories', 'filter', 'blogtags'));
     }
 
     public function add()
     {
-        return view('admin.blog-category.add');
+        $blogtags = BlogTags::all();
+        return view('admin.blog-category.add', compact('blogtags'));
     }
 
     public function store(Request $request)
@@ -39,6 +43,20 @@ class BlogCategoryController extends Controller
             'slug'     => 'required',
             'image'    => 'image|mimes:jpeg,png,jpg,svg|max:8192'
         ]);
+
+        $tags = $request->tags;
+        foreach ($tags as $tag) {
+            if (is_numeric($tag)) {
+                $tagArr[] = $tag;
+            } else {
+                $newTag = BlogTags::create([
+                    'tag_name' => $tag,
+                    'slug' => Str::slug($tag)
+                ]);
+
+                $tagArr[] = $newTag->id;
+            }
+        }
 
         if ($request->file('image')) {
             $image = $this->UploadImageCloudinary([
@@ -52,6 +70,7 @@ class BlogCategoryController extends Controller
         BlogCategory::create([
             'name'        => $request->category,
             'slug'        => $request->slug,
+            'tags_id'     => implode(',', $tagArr),
             'description' => $request->description ?? '',
             'image'       => $image_url ?? '',
             'additional_image' => $additional_image ?? ''
@@ -62,8 +81,10 @@ class BlogCategoryController extends Controller
 
     public function edit(BlogCategory $category)
     {
+        $blogtags = BlogTags::all();
         return view('admin.blog-category.edit', [
-            'category' => $category
+            'category' => $category,
+            'blogtags' => $blogtags
         ]);
     }
     public function update(Request $request, BlogCategory $category)
@@ -88,6 +109,7 @@ class BlogCategoryController extends Controller
             'name'              => $request->category,
             'slug'              => $request->slug,
             'description'       => $request->description,
+            'tags_id'           => implode(',', $request->tags),
             'image'             => $image_url ?? $category->image,
             'additional_image'  => $additional_image ?? $category->image
         ]);

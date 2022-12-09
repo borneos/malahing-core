@@ -44,6 +44,17 @@
                                 <textarea name="description" id="description" class="form-control">{{ $category->description }}</textarea>
                             </div>
                             <div class="form-group">
+                                <label for="tags">Tags </label>
+                                <select name="tags[]" class="form-control tags" multiple="multiple">
+                                    @foreach ($blogtags as $tag)
+                                        @php
+                                            $tags_id = explode(',', $category->tags_id);
+                                        @endphp
+                                        <option value="{{ $tag->id }}" {{ is_array($tags_id) && in_array($tag->id, $tags_id) ? 'selected' : '' }}>{{ $tag->tag_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <label for="image">Image</label><br>
                                 <input type="file" accept="image/*" id="image" name="image">
                                 @error('image')
@@ -84,5 +95,12 @@
             function convertToSlug(Text) {
                 return Text.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
             }
+
+            $(".tags").select2({
+                tags: true,
+                tokenSeparators: [',', ' '],
+                theme: "bootstrap4",
+                placeholder: "",
+            })
         </script>
     @endsection
