@@ -1,19 +1,19 @@
-@extends('layouts.app-admin', ['title' => 'Blog Category'])
+@extends('layouts.app-admin', ['title' => 'Banners'])
 
 @section('content')
-    {{-- <div class="app-main__inner">
+    <div class="app-main__inner">
         <div class="app-page-title">
             <div class="page-title-wrapper">
                 <div class="page-title-heading">
                     <div class="page-title-icon">
-                        <i class="pe-7s-note icon-gradient bg-tempting-azure"></i>
+                        <i class="pe-7s-photo-gallery icon-gradient bg-tempting-azure"></i>
                     </div>
-                    <div>Blog Category&nbsp;<span class="badge badge-pill badge-primary">{{ number_format($categories->total(), 0, '', '.') }}</span>
-                        <div class="page-title-subheading">List Blog Category</div>
+                    <div>Banners&nbsp;<span class="badge badge-pill badge-primary">{{ number_format($banners->total(), 0, '', '.') }}</span>
+                        <div class="page-title-subheading">List Banners</div>
                     </div>
                 </div>
                 <div class="page-title-actions">
-                    <a href="{{ route('admin.blog-category.add') }}" class="btn-shadow btn btn-info btn-lg">Add Blog Category</a>
+                    <a href="{{ route('admin.blog-category.add') }}" class="btn-shadow btn btn-info btn-lg">Add Banner</a>
                 </div>
             </div>
         </div>
@@ -44,41 +44,28 @@
                 <table style="width: 100%;" class="table table-hover table-striped table-bordered">
                     <thead>
                         <tr>
-                            <th style="min-width: 120px">@sortablelink('name', 'Name')</th>
-                            <th style="min-width: 120px">@sortablelink('slug', 'Slug')</th>
-                            <th style="min-width: 120px">Tags</th>
+                            <th style="min-width: 120px">@sortablelink('id', 'ID')</th>
+                            <th style="min-width: 120px">@sortablelink('title', 'Title')</th>
+                            <th style="min-width: 120px">Status</th>
                             <th style="min-width: 100px">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @if ($categories->count() == 0)
+                        @if ($banners->count() == 0)
                             <tr>
-                                <td colspan="5">No categories to display.</td>
+                                <td colspan="5">No banners to display.</td>
                             </tr>
                         @endif
-                        @foreach ($categories as $category)
-                            @php
-                                $tags_id = explode(',', $category->tags_id);
-                            @endphp
+                        @foreach ($banners as $banner)
                             <tr>
-                                <td>{{ $category->name ? $category->name : '-' }}</td>
-                                <td>{{ $category->slug ? $category->slug : '-' }}</td>
+                                <td>{{ $banner->id ? $banner->id : '-' }}</td>
+                                <td>{{ $banner->title ? $banner->title : '-' }}</td>
+                                <td>{{ $banner->status ? $banner->status : '-' }}</td>
                                 <td>
-                                    @foreach ($blogtags as $tag)
-                                        @if (is_array($tags_id) && in_array($tag->id, $tags_id))
-                                            @php
-                                                $tagArr[] = $tag->tag_name;
-                                            @endphp
-                                        @endif
-                                    @endforeach
-                                    @php
-                                        echo implode(', ', $tagArr);
-                                        unset($tagArr);
-                                    @endphp
-                                </td>
-                                <td>
-                                    <a href="{{ route('admin.blog-category.edit', $category) }}" class="btn btn-warning btn-sm" title="Edit ?"><i style="font-size: 14px" class="text-white pe-7s-note"></i></a>
-                                    <button type="button" onclick="delete_blog_category({{ $category->id }})" class="btn btn-danger btn-sm" title="Delete ?"><i style="font-size: 14px" class="pe-7s-trash"></i></button>
+                                    <a href="" class="btn btn-warning btn-sm" title="Edit ?"><i style="font-size: 14px" class="text-white pe-7s-note"></i></a>
+                                    {{-- <a href="{{ route('admin.blog-category.edit', $category) }}" class="btn btn-warning btn-sm" title="Edit ?"><i style="font-size: 14px" class="text-white pe-7s-note"></i></a> --}}
+                                    <button type="button" class="btn btn-danger btn-sm" title="Delete ?"><i style="font-size: 14px" class="pe-7s-trash"></i></button>
+                                    {{-- <button type="button" onclick="delete_blog_category({{ $category->id }})" class="btn btn-danger btn-sm" title="Delete ?"><i style="font-size: 14px" class="pe-7s-trash"></i></button> --}}
                                 </td>
                             </tr>
                         @endforeach
@@ -86,15 +73,15 @@
                 </table>
                 <div class="row">
                     <div class="col-12 col-md-6 flex-1">
-                        {!! $categories->appends(['sort' => request()->sort, 'direction' => request()->direction, 'filter' => request()->filter])->onEachSide(2)->links() !!}
+                        {!! $banners->appends(['sort' => request()->sort, 'direction' => request()->direction, 'filter' => request()->filter])->onEachSide(2)->links() !!}
                     </div>
                     <div class="col-12 col-md-6 w-100 d-flex justify-content-end align-middle">
-                        <p>Displaying {{ $categories->count() }} of {{ number_format($categories->total(), 0, '', '.') }} categories</p>
+                        <p>Displaying {{ $banners->count() }} of {{ number_format($banners->total(), 0, '', '.') }} banners</p>
                     </div>
                 </div>
             </div>
         </div>
-    </div> --}}
+    </div>
 @endsection
 @section('js')
     <script type="text/javascript">
