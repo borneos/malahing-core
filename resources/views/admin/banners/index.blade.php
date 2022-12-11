@@ -1,7 +1,7 @@
 @extends('layouts.app-admin', ['title' => 'Blog Category'])
 
 @section('content')
-    <div class="app-main__inner">
+    {{-- <div class="app-main__inner">
         <div class="app-page-title">
             <div class="page-title-wrapper">
                 <div class="page-title-heading">
@@ -94,7 +94,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 @endsection
 @section('js')
     <script type="text/javascript">
