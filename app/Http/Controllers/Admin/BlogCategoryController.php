@@ -60,7 +60,7 @@ class BlogCategoryController extends Controller
 
         if ($request->file('image')) {
             $image = $this->UploadImageCloudinary([
-                'image' => $request->file('image'),
+                'image'  => $request->file('image'),
                 'folder' => 'images/blogs'
             ]);
             $image_url = $image['url'];

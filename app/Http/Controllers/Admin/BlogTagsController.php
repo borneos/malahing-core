@@ -17,7 +17,7 @@ class BlogTagsController extends Controller
                 ->orWhere('blog-tags.slug', 'like', '%' . $filter . '%')
                 ->paginate(10);
         } else {
-            $tags = BlogTags::sortable()->paginate(10);
+            $tags = BlogTags::sortable()->paginate(2);
         }
         return view('admin.blog-tags.index', compact('tags', 'filter'));
     }

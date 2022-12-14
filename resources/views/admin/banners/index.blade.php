@@ -13,7 +13,7 @@
                     </div>
                 </div>
                 <div class="page-title-actions">
-                    <a href="{{ route('admin.blog-category.add') }}" class="btn-shadow btn btn-info btn-lg">Add Banner</a>
+                    <a href="{{ route('admin.banners.add') }}" class="btn-shadow btn btn-info btn-lg">Add Banner</a>
                 </div>
             </div>
         </div>
@@ -60,7 +60,11 @@
                             <tr>
                                 <td>{{ $banner->id ? $banner->id : '-' }}</td>
                                 <td>{{ $banner->title ? $banner->title : '-' }}</td>
-                                <td>{{ $banner->status ? $banner->status : '-' }}</td>
+                                <td>
+                                    <label class="m-auto align-middle" for="statusCheckbox{{ $banner->id }}">
+                                        <input type="checkbox" data-toggle="toggle" data-size="small" onclick="loading()" onChange="location.href='{{ route('admin.banners.status', [$banner['id'], $banner->status ? 0 : 1]) }}'" id="statusCheckbox{{ $banner->id }}" {{ $banner->status ? 'checked' : '' }}>
+                                    </label>
+                                </td>
                                 <td>
                                     <a href="" class="btn btn-warning btn-sm" title="Edit ?"><i style="font-size: 14px" class="text-white pe-7s-note"></i></a>
                                     {{-- <a href="{{ route('admin.blog-category.edit', $category) }}" class="btn btn-warning btn-sm" title="Edit ?"><i style="font-size: 14px" class="text-white pe-7s-note"></i></a> --}}
