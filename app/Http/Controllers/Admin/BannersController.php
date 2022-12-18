@@ -20,7 +20,7 @@ class BannersController extends Controller
                 ->where('banners.title', 'like', '%' . $filter . '%')
                 ->paginate(10);
         } else {
-            $banners = Banners::sortable()->paginate(2);
+            $banners = Banners::sortable()->paginate(10);
         }
         return view('admin.banners.index', compact('banners', 'filter'));
     }
