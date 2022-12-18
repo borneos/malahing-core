@@ -1,7 +1,6 @@
 <?php
 
-use App\Http\Controllers\Admin\{BannerController, BlogCategoryController, BlogTags, BlogTagsController, UserController};
-use App\Models\Banners;
+use App\Http\Controllers\Admin\{BannerController, BlogCategoryController, BlogTagsController, UserController};
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -38,5 +37,6 @@ Route::namespace('Admin')->middleware('auth')->group(function () {
         Route::get('/status/{id}/{status}', [BannerController::class, 'banner_status'])->name('admin.banners.status');
         Route::get('/edit/{banner:id}', [BannerController::class, 'edit'])->name('admin.banners.edit');
         Route::put('/edit/{banner:id}', [BannerController::class, 'update'])->name('admin.banners.update');
+        Route::delete('/{banner:id}', [BannerController::class, 'delete'])->name('admin.banners.delete');
     });
 });

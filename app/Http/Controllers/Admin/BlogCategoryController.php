@@ -111,7 +111,7 @@ class BlogCategoryController extends Controller
             'description'       => $request->description,
             'tags_id'           => implode(',', $request->tags),
             'image'             => $image_url ?? $category->image,
-            'additional_image'  => $additional_image ?? $category->image
+            'additional_image'  => $additional_image ?? $category->additional_image
         ]);
         Alert::success('Success', 'Updated Successfully');
         return redirect()->route('admin.blog-category.index');

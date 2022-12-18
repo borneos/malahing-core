@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Http\Traits\CloudinaryImage;
 use App\Models\Banners;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -97,5 +98,15 @@ class BannerController extends Controller
 
         Alert::success('Success', 'Updated Successfully');
         return redirect()->route('admin.banners.index');
+    }
+
+    public function delete(Banners $banner)
+    {
+        if ($banner->image && $banner->additional_image) {
+            $key = json_decode($banner->additional_image);
+            Cloudinary::destroy($key->public_id);
+        }
+        $banner->delete();
+        return response()->json(['status' => 200]);
     }
 }
