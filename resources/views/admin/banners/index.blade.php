@@ -66,8 +66,7 @@
                                     </label>
                                 </td>
                                 <td>
-                                    <a href="" class="btn btn-warning btn-sm" title="Edit ?"><i style="font-size: 14px" class="text-white pe-7s-note"></i></a>
-                                    {{-- <a href="{{ route('admin.blog-category.edit', $category) }}" class="btn btn-warning btn-sm" title="Edit ?"><i style="font-size: 14px" class="text-white pe-7s-note"></i></a> --}}
+                                    <a href="{{ route('admin.banners.edit', $banner) }}" class="btn btn-warning btn-sm" title="Edit ?"><i style="font-size: 14px" class="text-white pe-7s-note"></i></a>
                                     <button type="button" class="btn btn-danger btn-sm" title="Delete ?"><i style="font-size: 14px" class="pe-7s-trash"></i></button>
                                     {{-- <button type="button" onclick="delete_blog_category({{ $category->id }})" class="btn btn-danger btn-sm" title="Delete ?"><i style="font-size: 14px" class="pe-7s-trash"></i></button> --}}
                                 </td>

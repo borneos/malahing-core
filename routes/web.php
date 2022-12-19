@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Admin\{BannersController, BlogCategoryController, BlogTags, BlogTagsController, UserController};
+use App\Http\Controllers\Admin\{BannerController, BlogCategoryController, BlogTags, BlogTagsController, UserController};
 use App\Models\Banners;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -32,9 +32,11 @@ Route::namespace('Admin')->middleware('auth')->group(function () {
     });
 
     Route::prefix('banners')->group(function () {
-        Route::get('/', [BannersController::class, 'index'])->name('admin.banners.index');
-        Route::get('/add', [BannersController::class, 'add'])->name('admin.banners.add');
-        Route::post('/add', [BannersController::class, 'store'])->name('admin.banners.store');
-        Route::get('/status/{id}/{status}', [BannersController::class, 'banner_status'])->name('admin.banners.status');
+        Route::get('/', [BannerController::class, 'index'])->name('admin.banners.index');
+        Route::get('/add', [BannerController::class, 'add'])->name('admin.banners.add');
+        Route::post('/add', [BannerController::class, 'store'])->name('admin.banners.store');
+        Route::get('/status/{id}/{status}', [BannerController::class, 'banner_status'])->name('admin.banners.status');
+        Route::get('/edit/{banner:id}', [BannerController::class, 'edit'])->name('admin.banners.edit');
+        Route::put('/edit/{banner:id}', [BannerController::class, 'update'])->name('admin.banners.update');
     });
 });

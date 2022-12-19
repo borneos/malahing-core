@@ -8,7 +8,7 @@ use App\Models\Banners;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class BannersController extends Controller
+class BannerController extends Controller
 {
     use CloudinaryImage;
 
@@ -62,6 +62,40 @@ class BannersController extends Controller
         $banners->status = $request->status;
         $banners->save();
         Alert::success('Success', 'Update Successfully');
+        return redirect()->route('admin.banners.index');
+    }
+
+    public function edit(Banners $banner)
+    {
+        return view('admin.banners.edit', [
+            'banner' => $banner
+        ]);
+    }
+
+    public function update(Request $request, Banners $banner)
+    {
+        $request->validate([
+            'title'     => 'required',
+            'image'     => 'image|mimes:jpeg,png,svg|max:8192'
+        ]);
+
+        if ($request->file('image')) {
+            $image = $this->UpdateImageCloudinary([
+                'image'     => $request->file('image'),
+                'folder'    => 'images/banners',
+                'collection' => $banner
+            ]);
+            $image_url = $image['url'];
+            $additional_image = $image['additional_image'];
+        }
+
+        $banner->update([
+            'title'             => $request->title,
+            'image'             => $image_url ?? $banner->image,
+            'additional_image'  => $additional_image ?? $banner->additional_image
+        ]);
+
+        Alert::success('Success', 'Updated Successfully');
         return redirect()->route('admin.banners.index');
     }
 }
