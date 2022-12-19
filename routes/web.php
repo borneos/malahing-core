@@ -37,6 +37,7 @@ Route::namespace('Admin')->middleware('auth')->group(function () {
         Route::get('/status/{id}/{status}', [BlogController::class, 'status'])->name('admin.blogs.status');
         Route::get('/edit/{blog:id}', [BlogController::class, 'edit'])->name('admin.blogs.edit');
         Route::put('/edit/{blog:id}', [BlogController::class, 'update'])->name('admin.blogs.update');
+        Route::delete('/{blog:id}', [BlogController::class, 'delete'])->name('admin.blogs.delete');
     });
 
     Route::prefix('banners')->group(function () {
