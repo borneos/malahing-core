@@ -13,8 +13,7 @@
                     </div>
                 </div>
                 <div class="page-title-actions">
-                    <a href="" class="btn-shadow btn btn-info btn-lg">Add Blog Category</a>
-                    {{-- <a href="{{ route('admin.blog-category.add') }}" class="btn-shadow btn btn-info btn-lg">Add Blog Category</a> --}}
+                    <a href="{{ route('admin.blogs.add') }}" class="btn-shadow btn btn-info btn-lg">Add Blog</a>
                 </div>
             </div>
         </div>
