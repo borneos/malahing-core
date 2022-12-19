@@ -34,13 +34,16 @@ Route::namespace('Admin')->middleware('auth')->group(function () {
         Route::get('/', [BlogController::class, 'index'])->name('admin.blogs.index');
         Route::get('/add', [BlogController::class, 'add'])->name('admin.blogs.add');
         Route::post('/add', [BlogController::class, 'store'])->name('admin.blogs.store');
+        Route::get('/status/{id}/{status}', [BlogController::class, 'status'])->name('admin.blogs.status');
+        Route::get('/edit/{blog:id}', [BlogController::class, 'edit'])->name('admin.blogs.edit');
+        Route::put('/edit/{blog:id}', [BlogController::class, 'update'])->name('admin.blogs.update');
     });
 
     Route::prefix('banners')->group(function () {
         Route::get('/', [BannerController::class, 'index'])->name('admin.banners.index');
         Route::get('/add', [BannerController::class, 'add'])->name('admin.banners.add');
         Route::post('/add', [BannerController::class, 'store'])->name('admin.banners.store');
-        Route::get('/status/{id}/{status}', [BannerController::class, 'banner_status'])->name('admin.banners.status');
+        Route::get('/status/{id}/{status}', [BannerController::class, 'status'])->name('admin.banners.status');
         Route::get('/edit/{banner:id}', [BannerController::class, 'edit'])->name('admin.banners.edit');
         Route::put('/edit/{banner:id}', [BannerController::class, 'update'])->name('admin.banners.update');
         Route::delete('/{banner:id}', [BannerController::class, 'delete'])->name('admin.banners.delete');

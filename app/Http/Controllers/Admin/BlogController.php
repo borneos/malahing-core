@@ -62,4 +62,51 @@ class BlogController extends Controller
         Alert::success('Success', 'Data Created Succesfully');
         return redirect()->route('admin.blogs.index');
     }
+
+    public function status(Request $request)
+    {
+        $blogs = Blog::withoutGlobalScopes()->find($request->id);
+        $blogs->status = $request->status;
+        $blogs->save();
+        Alert::success('Success', 'Status Changed');
+        return redirect()->route('admin.blogs.index');
+    }
+
+    public function edit(Blog $blog)
+    {
+        return view('admin.blogs.edit', [
+            'blog'  => $blog
+        ]);
+    }
+
+    public function update(Request $request, Blog $blog)
+    {
+        $request->validate([
+            'title'             => 'required',
+            'short_description' => 'required',
+            'description'       => 'required',
+            'image'             => 'image|mimes:jpeg,png,jpg,svg|max:8192'
+        ]);
+
+        if ($request->file('image')) {
+            $image = $this->UpdateImageCloudinary([
+                'image'     => $request->file('image'),
+                'folder'    => 'images/blogs',
+                'collection' => $blog
+            ]);
+            $image_url = $image['url'];
+            $additional_image = $image['additional_image'];
+        }
+
+        $blog->update([
+            'title'             => $request->title,
+            'short_description' => $request->short_description,
+            'description'       => $request->description,
+            'author'            => Auth::user()->name,
+            'image'             => $image_url ?? '',
+            'additional_image'  => $additional_image ?? ''
+        ]);
+        Alert::success('Success', 'Update Successfully');
+        return redirect()->route('admin.blogs.index');
+    }
 }

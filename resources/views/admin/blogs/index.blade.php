@@ -64,10 +64,13 @@
                                 <td>{{ $blog->title ? $blog->title : '-' }}</td>
                                 <td>{{ $blog->short_description ? $blog->short_description : '-' }}</td>
                                 <td>{{ $blog->author ? $blog->author : '-' }}</td>
-                                <td>{{ $blog->status ? $blog->status : '-' }}</td>
                                 <td>
-                                    {{-- <a href="{{ route('admin.blog-category.edit', $category) }}" class="btn btn-warning btn-sm" title="Edit ?"><i style="font-size: 14px" class="text-white pe-7s-note"></i></a> --}}
-                                    <a href="" class="btn btn-warning btn-sm" title="Edit ?"><i style="font-size: 14px" class="text-white pe-7s-note"></i></a>
+                                    <label class="m-auto align-middle" for="statusCheckbox{{ $blog->id }}">
+                                        <input type="checkbox" data-toggle="toggle" data-size="small" onclick="loading()" onChange="location.href='{{ route('admin.blogs.status', [$blog['id'], $blog->status ? 0 : 1]) }}'" id="statusCheckbox{{ $blog->id }}" {{ $blog->status ? 'checked' : '' }}>
+                                    </label>
+                                </td>
+                                <td>
+                                    <a href="{{ route('admin.blogs.edit', $blog) }}" class="btn btn-warning btn-sm" title="Edit ?"><i style="font-size: 14px" class="text-white pe-7s-note"></i></a>
                                     <button type="button" class="btn btn-danger btn-sm" title="Delete ?"><i style="font-size: 14px" class="pe-7s-trash"></i></button>
                                     {{-- <button type="button" onclick="delete_blog_category({{ $category->id }})" class="btn btn-danger btn-sm" title="Delete ?"><i style="font-size: 14px" class="pe-7s-trash"></i></button> --}}
                                 </td>
