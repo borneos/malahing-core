@@ -57,12 +57,12 @@ class BannerController extends Controller
         return redirect()->route('admin.banners.index');
     }
 
-    public function banner_status(Request $request)
+    public function status(Request $request)
     {
         $banners = Banners::withoutGlobalScopes()->find($request->id);
         $banners->status = $request->status;
         $banners->save();
-        Alert::success('Success', 'Update Successfully');
+        Alert::success('Success', 'Status Changed');
         return redirect()->route('admin.banners.index');
     }
 
