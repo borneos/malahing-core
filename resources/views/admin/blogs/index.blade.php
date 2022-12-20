@@ -71,8 +71,7 @@
                                 </td>
                                 <td>
                                     <a href="{{ route('admin.blogs.edit', $blog) }}" class="btn btn-warning btn-sm" title="Edit ?"><i style="font-size: 14px" class="text-white pe-7s-note"></i></a>
-                                    <button type="button" class="btn btn-danger btn-sm" title="Delete ?"><i style="font-size: 14px" class="pe-7s-trash"></i></button>
-                                    {{-- <button type="button" onclick="delete_blog_category({{ $category->id }})" class="btn btn-danger btn-sm" title="Delete ?"><i style="font-size: 14px" class="pe-7s-trash"></i></button> --}}
+                                    <button type="button" onclick="delete_blog({{ $blog->id }})" class="btn btn-danger btn-sm" title="Delete ?"><i style="font-size: 14px" class="pe-7s-trash"></i></button>
                                 </td>
                             </tr>
                         @endforeach
@@ -92,7 +91,7 @@
 @endsection
 @section('js')
     <script type="text/javascript">
-        function delete_blog_category(id) {
+        function delete_blog(id) {
             Swal.fire({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
@@ -106,7 +105,7 @@
                     let _token = $('meta[name="csrf-token"]').attr('content');
                     $.ajax({
                         type: "DELETE",
-                        url: "/blog-category/" + id,
+                        url: "/blogs/" + id,
                         data: {
                             _token: _token,
                             id: id
@@ -118,7 +117,7 @@
                                     'Your file has been deleted.',
                                     'success'
                                 )
-                                window.location = "{{ route('admin.blog-category.index') }}";
+                                window.location = "{{ route('admin.blogs.index') }}";
                             }
                         }
                     });

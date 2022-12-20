@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Http\Traits\CloudinaryImage;
 use App\Models\Blog;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -108,5 +109,15 @@ class BlogController extends Controller
         ]);
         Alert::success('Success', 'Update Successfully');
         return redirect()->route('admin.blogs.index');
+    }
+
+    public function delete(Blog $blog)
+    {
+        if ($blog->image && $blog->additional_image) {
+            $key = json_decode($blog->additional_image);
+            Cloudinary::destroy($key->public_id);
+        }
+        $blog->delete();
+        return response()->json(['status' => 200]);
     }
 }
