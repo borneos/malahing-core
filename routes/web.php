@@ -32,6 +32,8 @@ Route::namespace('Admin')->middleware('auth')->group(function () {
 
     Route::prefix('blogs')->group(function () {
         Route::get('/', [BlogController::class, 'index'])->name('admin.blogs.index');
+        Route::get('/add', [BlogController::class, 'add'])->name('admin.blogs.add');
+        Route::post('/add', [BlogController::class, 'store'])->name('admin.blogs.store');
     });
 
     Route::prefix('banners')->group(function () {

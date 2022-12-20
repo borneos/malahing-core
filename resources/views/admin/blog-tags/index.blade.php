@@ -6,7 +6,7 @@
             <div class="page-title-wrapper">
                 <div class="page-title-heading">
                     <div class="page-title-icon">
-                        <i class="pe-7s-note icon-gradient bg-tempting-azure"></i>
+                        <i class="pe-7s-ticket icon-gradient bg-tempting-azure"></i>
                     </div>
                     <div>Blog Tags&nbsp;<span class="badge badge-pill badge-primary">{{ number_format($tags->total(), 0, '', '.') }}</span>
                         <div class="page-title-subheading">List Blog Tags</div>
